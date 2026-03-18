@@ -57,14 +57,7 @@ git push -u origin main
 
 ## Шаг 6: Проверь настройки деплоя
 
-Зайди в сервис → **"Settings"**:
-
-- **Root Directory**: оставь пустым (корень репо)
-- **Build Command**: `pip install -r backend/requirements.txt`
-- **Start Command**: оставь пустым (Railway возьмёт из `Procfile`)
-
-> Если Railway не подхватил Procfile, укажи Start Command вручную:
-> `cd backend && gunicorn app:app --bind 0.0.0.0:$PORT`
+Ничего настраивать не нужно — файл `nixpacks.toml` в корне репозитория уже содержит все настройки сборки и запуска. Railway подхватит его автоматически.
 
 ---
 
