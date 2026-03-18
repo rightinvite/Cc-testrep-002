@@ -10,7 +10,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__, static_folder="../frontend", static_url_path="")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "horeca-checklist-secret-key-change-me")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///horeca.db")
+database_url = os.environ.get("DATABASE_URL", "sqlite:///horeca.db")
+# Railway даёт postgres://, а SQLAlchemy требует postgresql://
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 CORS(app)
 db = SQLAlchemy(app)
